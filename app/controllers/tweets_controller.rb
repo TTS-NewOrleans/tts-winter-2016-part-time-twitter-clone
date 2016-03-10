@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @tweets = Tweet.all
   end
 
   def show
@@ -29,5 +30,15 @@ class TweetsController < ApplicationController
       end
     end
   end
+
+  private
+
+    def set_tweet
+      @tweet = Tweet.find(params[:id])
+    end
+
+    def tweet_params
+      params.require(:tweet).permit(:message, :user_id)
+    end
 
 end
